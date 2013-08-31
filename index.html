@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>News Planet - 輕鬆閱讀10億以下資本額的媒體們</title>
+  <title>News Planet - 輕鬆閱讀5億以下資本額的媒體們</title>
   <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/cosmo/bootstrap.min.css" rel="stylesheet">
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   <style>
@@ -15,18 +15,29 @@
    #items { margin-top: 60px; }
    .lead { font-size:18px; }
    .icon-spinner { font-size: 60px; text-align: center; color: #aaa;}
+   .fb-like { float: left; }
+   .lead { margin-top: 10px; }
   </style>
 </head>
 <body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) { //facebook
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=369513719838672";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript">
   function pipeCallback(obj){ 
-    var x, item, desc, img, row, more, bw;
+    var x, item, desc, img, row, more, bw, like;
     for (x = 0; x < obj.count ; x++){
       if(obj.value.items[x].link.match('.4way')){
         continue;
       }
+      like = '<div class="fb-like" data-href="'+obj.value.items[x].link+'" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>';
       desc = obj.value.items[x].description.replace(/(&#[^;]+;)|(\n|\r|\[|\])/gi, '');
       desc = $(desc);
       desc.find('img[src*=feedburner]').remove();
@@ -50,6 +61,7 @@
       item = '<div class="row featurette">'+
       '<div class="col-md-'+bw+'">'+
       '<h3 class="featurette-heading"><a href="' + obj.value.items[x].link + '" target="_blank">' + obj.value.items[x].title + '</a></h3>'+
+      like +
       '<div class="time">' + obj.value.items[x].pubDate + '</div>'+
       desc+
       '</div>' +
